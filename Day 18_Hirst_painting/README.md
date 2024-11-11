@@ -8,6 +8,5 @@ I aimed to capture the essence of Hirst's work in a way that brings code and art
 
 * *Link for the Python Turtle Package:* https://docs.python.org/3/library/turtle.html#turtle.setpos
 
-* *Link for the current price of the painting:* https://www.myartbroker.com/artist-damien-hirst/record-prices/damien-hirst-record-prices
-
-* *Link for the information about the artist.* https://www.artsy.net/artwork/damien-hirst-bromphenol-blue-27
+* *Link for the information about the artist:* https://www.myartbroker.com/artist-damien-hirst/record-prices/damien-hirst-record-prices
+* *Link for the current price of the painting:* https://www.artsy.net/artwork/damien-hirst-bromphenol-blue-27
