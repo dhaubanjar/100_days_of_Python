@@ -38,14 +38,14 @@ while game_is_on:
 
     """ Detect collisions between snake and wall """
     if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280 or snake.head.ycor() > 280:
-        game_is_on = False
-        scoreboard.game_over()              # displays game over text
+        scoreboard.reset()              # reset the score and update high score
+        snake.snake_reset()
 
     """ Detect collisions with snake body """
     for body in snake.snake_body[1:]:               # uses python slice, [1: ] excludes 1st element
         if snake.head.distance(body) < 10:          # touches snake's body
-            game_is_on = False
-            scoreboard.game_over()
+            scoreboard.reset()
+            snake.snake_reset()
 
 
 
