@@ -68,6 +68,17 @@ def save_data():
             email_entry.delete(0, END)
 
 
+""" Search from the database"""
+def find_password():
+    website = website_entry.get()
+    with open("data.json", "r") as data_file:
+        data = json.load(data_file)
+        for key, value in data.items():
+            if website in key:
+                messagebox.showinfo("Found",f"Website: {website} \nPassword: {value['password']}")
+            else:
+                messagebox.showinfo("Not Found","No details for the website exists.")
+
 # ---------------------------- UI SETUP ------------------------------- #
 
 window = Tk()
@@ -88,17 +99,22 @@ email_label.grid(column=0, row=2)
 password_label = Label(text="Password:", bg="white", fg="black")
 password_label.grid(column=0, row=3)
 
-""" Entries """
-website_entry = Entry(width=35, bg="white", fg="black")
-website_entry.grid(column=1, row=1, columnspan=2)
-website_entry.focus()
 
-email_entry = Entry(width=35, bg="white", fg="black")
+""" Entries """
+website_entry = Entry(width=21, bg="white", fg="black")
+website_entry.grid(column=1, row=1, columnspan=1)
+website_entry.focus()                               # starts the cursor here
+
+email_entry = Entry(width=38, bg="white", fg="black")
 email_entry.grid(column=1, row=2, columnspan=2)
 email_entry.insert(0, "test@gmail.com")
 
 password_entry = Entry(width=21, bg="white", fg="black")
 password_entry.grid(column=1, row=3, columnspan=1)
+
+""" Search Website Button """
+search_button = Button(text="Search", width=13, bg="white", fg="black", command=find_password)
+search_button.grid(column=2, row=1)
 
 """ Generate Password """
 generate_password = Button(text="Generate Password", bg="white", fg="black", command=gen_password)
