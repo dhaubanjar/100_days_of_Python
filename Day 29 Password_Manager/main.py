@@ -3,7 +3,7 @@
 from tkinter import *
 from tkinter import messagebox
 import random
-import pyperclip
+import pyperclip                                # python module for clipboarda
 import json
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
@@ -31,13 +31,13 @@ def gen_password():
         password += char
 
     password_entry.insert(0, password)
-    pyperclip.copy(password)  # copies password into clipboard
+    pyperclip.copy(password)                        # copies password into clipboard
 
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
 def save_data():
-    website = website_entry.get()  # gets entered data from website text-box
+    website = website_entry.get()                   # gets entered data from website text-box
     email = email_entry.get()
     password = password_entry.get()
     new_data = {
@@ -71,13 +71,17 @@ def save_data():
 """ Search from the database"""
 def find_password():
     website = website_entry.get()
-    with open("data.json", "r") as data_file:
-        data = json.load(data_file)
+    try:                                                        # checks if the data.json file exits
+        with open("data.json", "r") as data_file:
+            data = json.load(data_file)
+    except (FileNotFoundError, json.JSONDecodeError):           # prevents from throwing error.
+        messagebox.showinfo("Error", "No data found.")
+    else:
         for key, value in data.items():
             if website in key:
                 messagebox.showinfo("Found",f"Website: {website} \nPassword: {value['password']}")
             else:
-                messagebox.showinfo("Not Found","No details for the website exists.")
+                messagebox.showinfo("Not Found",f"No details for the {website} exists.")
 
 # ---------------------------- UI SETUP ------------------------------- #
 
