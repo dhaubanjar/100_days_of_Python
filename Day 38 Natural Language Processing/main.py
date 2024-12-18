@@ -10,6 +10,7 @@ GENDER = os.getenv("MY_GENDER")
 WEIGHT_KG = os.getenv("MY_WEIGHT")
 HEIGHT_CM = os.getenv("MY_HEIGHT")
 AGE = os.getenv("MY_AGE")
+BEAR_TOKEN = os.getenv("BEARER_TOKEN")
 
 SYNDIGO_ENDPOINT = "https://trackapi.nutritionix.com/v2/natural/exercise"
 SHEETY_POST_ENDPOINT = "https://api.sheety.co/15561209459c28cc04375d00e688f1c1/workoutTracking/sheet1"
@@ -18,9 +19,12 @@ nutrition_headers = {
     "x-app-key": API_KEY,
 }
 exercise_text = input("Tell me which exercise you did: ")
+exercise_duration = input("Tell me the duration of the exercise: ")
+exercise_calories = input("Tell me the calories burn: ")
+
+
 nutrition_parameter = {
     "query" : exercise_text,
-
 }
 
 
@@ -38,14 +42,22 @@ sheety_headers = {
     "Content-Type": "application/json",
 }
 
+""" Adding Bearer Authentication"""
+bearer_headers = {
+    "Authorization": f"Bearer {BEAR_TOKEN}"
+}
+
+""" Column items to be posted in the google sheets. Sheet1 is the name of my workout in sheety.com"""
 sheety_parameters = {
     "sheet1" :{
         "date" : today_date,
         "time" : today_time,
-        "exercise" : "swimming",
-        "duration" : "30",
-        "calories" : "460",
+        "exercise" : exercise_text.title(),
+        "duration" : exercise_duration,
+        "calories" : exercise_calories,
     }
 }
-add_row = requests.post(SHEETY_POST_ENDPOINT, json= sheety_parameters)
+
+""" calling POST request to post data into google sheets using sheety API """
+add_row = requests.post(SHEETY_POST_ENDPOINT, json= sheety_parameters, headers=bearer_headers)
 print(add_row.text)
