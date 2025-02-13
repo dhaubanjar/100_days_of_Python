@@ -12,11 +12,12 @@ phonetic_dict = {row.letter : row.code for (index, row) in nato.iterrows()}     
 def generate_phonetic():
     user_input = input("Enter a word. ").upper()
     try:
-        compare = {n: phonetic_dict[n] for n in user_input}                             # uses dictionary comprehension
+        compare = [{n: phonetic_dict[n]} for n in user_input ]                            # uses dictionary comprehension
     except KeyError:
         print("Enter only letters.\n")
         generate_phonetic()
     else:
-        print(compare)
+        for item in compare:
+            print(item)
 
 generate_phonetic()
